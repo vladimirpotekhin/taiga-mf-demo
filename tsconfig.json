@@ -2,5 +2,10 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
-  "references": []
+  "references": [
+    { "path": "apps/hosts/host-v4" },
+    { "path": "apps/hosts/host-v5" },
+    { "path": "apps/remotes/remoteV4" },
+    { "path": "apps/remotes/remoteV5" }
+  ]
 }

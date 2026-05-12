@@ -1,0 +1,111 @@
+{
+  "name": "host-v5",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/hosts/host-v5/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/host-v5",
+        "index": "apps/hosts/host-v5/src/index.html",
+        "main": "apps/hosts/host-v5/src/main.ts",
+        "tsConfig": "apps/hosts/host-v5/tsconfig.app.json",
+        "inlineStyleLanguage": "less",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/hosts/host-v5/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "{workspaceRoot}/apps/hosts/host-v5/node_modules/@taiga-ui/icons/src",
+            "output": "assets/taiga-ui/icons"
+          }
+        ],
+        "styles": [
+          "node_modules/@taiga-ui/styles/taiga-ui-theme.less",
+          "node_modules/@taiga-ui/styles/taiga-ui-fonts.less",
+          "apps/hosts/host-v5/src/styles.less"
+        ],
+        "customWebpackConfig": {
+          "path": "apps/hosts/host-v5/webpack.config.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/hosts/host-v5/webpack.prod.config.ts"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@nx/angular:module-federation-dev-server",
+      "options": {
+        "port": 4300,
+        "publicHost": "http://localhost:4300"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "host-v5:build:production"
+        },
+        "development": {
+          "buildTarget": "host-v5:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "host-v5:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../../coverage/host-v5"
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "host-v5:build",
+        "port": 4300,
+        "spa": true
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "host-v5",
+  "private": true,
+  "dependencies": {
+    "@taiga-ui/core": "5.5.0",
+    "@taiga-ui/cdk": "5.5.0",
+    "@taiga-ui/i18n": "5.5.0",
+    "@taiga-ui/icons": "5.5.0",
+    "@taiga-ui/styles": "5.5.0",
+    "@taiga-ui/polymorpheus": "^5.0.0",
+    "@taiga-ui/event-plugins": "^5.0.0",
+    "@ng-web-apis/common": "^5.1.0",
+    "@ng-web-apis/platform": "^5.1.0",
+    "@ng-web-apis/mutation-observer": "^5.1.0",
+    "@ng-web-apis/intersection-observer": "^5.1.0"
+  }
+}

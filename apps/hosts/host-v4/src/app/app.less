@@ -1,0 +1,32 @@
+.host-header {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  nav {
+    display: flex;
+    gap: 12px;
+
+    a {
+      text-decoration: none;
+      padding: 4px 12px;
+      border-radius: 4px;
+      color: inherit;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+  &--v4 {
+    background: #e3f2fd;
+    border-bottom: 3px solid #1976d2;
+  }
+}

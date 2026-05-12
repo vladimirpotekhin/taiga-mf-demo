@@ -1,0 +1,14 @@
+{
+  "name": "remoteV4",
+  "private": true,
+  "dependencies": {
+    "@taiga-ui/core": "4.81.0",
+    "@taiga-ui/cdk": "4.81.0",
+    "@taiga-ui/icons": "4.81.0",
+    "@taiga-ui/i18n": "4.81.0",
+    "@taiga-ui/polymorpheus": "^4.9.0",
+    "@taiga-ui/event-plugins": "^4.7.0",
+    "@ng-web-apis/common": "^4.14.0",
+    "@ng-web-apis/mutation-observer": "^4.14.0"
+  }
+}
