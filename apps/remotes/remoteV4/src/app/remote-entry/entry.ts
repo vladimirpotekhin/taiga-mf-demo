@@ -5,12 +5,12 @@ import { ProfileComponent } from './form/profile';
 import { TuiCard } from '@taiga-ui/layout';
 
 @Component({
-  selector: 'app-remoteV4-entry',
+  selector: 'app-remote-v4-entry',
   imports: [FormsModule, TuiRoot, ProfileComponent, TuiCard, TuiSurface],
   template: `
     <tui-root>
       <div tuiCardLarge tuiSurface="floating">
-        <mf-4-profile />
+        <app-mf-4-profile />
       </div>
     </tui-root>
   `,

@@ -18,7 +18,7 @@ import { switchMap } from 'rxjs';
 import { TuiForm, TuiHeader } from '@taiga-ui/layout';
 
 @Component({
-  selector: 'mf-5-profile',
+  selector: 'app-mf-5-profile',
   imports: [
     ReactiveFormsModule,
     TuiButton,

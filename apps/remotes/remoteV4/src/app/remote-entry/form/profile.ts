@@ -19,7 +19,7 @@ import {
 import { switchMap } from 'rxjs';
 
 @Component({
-  selector: 'mf-4-profile',
+  selector: 'app-mf-4-profile',
   imports: [
     ReactiveFormsModule,
     TuiButton,
