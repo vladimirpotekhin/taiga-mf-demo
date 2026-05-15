@@ -17,9 +17,9 @@ import {
     TuiNavigation,
     TuiLogoComponent,
     TuiMainComponent,
+    TuiButton,
   ],
   templateUrl: './app.html',
   styleUrl: './app.less',
 })
-export class App {
-}
+export class App {}

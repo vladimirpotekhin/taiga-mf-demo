@@ -2,11 +2,18 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TuiBadge } from '@taiga-ui/kit';
 import { TuiCard, TuiHeader } from '@taiga-ui/layout';
-import { TuiNotification } from '@taiga-ui/core';
+import { TuiNotification, TuiSurface } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, TuiBadge, TuiHeader, TuiCard, TuiNotification],
+  imports: [
+    RouterLink,
+    TuiBadge,
+    TuiHeader,
+    TuiCard,
+    TuiNotification,
+    TuiSurface,
+  ],
   template: `
     <section class="home">
       <span tuiBadge appearance="accent">Host v4 · Taiga UI v4</span>
