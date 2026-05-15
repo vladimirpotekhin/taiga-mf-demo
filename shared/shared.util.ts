@@ -26,7 +26,7 @@ export function makePackageAndPrefixShared(
 
 export function excludeTaigaFromAutoShare(packageName: string): boolean {
   return (
-    packageName.startsWith('@taiga-ui/') ||
+    packageName.startsWith('@taiga-ui/')||
     packageName.startsWith('@ng-web-apis/')
   );
 }

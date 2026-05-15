@@ -29,4 +29,5 @@ export const taiga5AdditionalShared: [string, SharedLibraryConfig][] = [
   ...UTILITY_PACKAGES.flatMap((pkg) =>
     makePackageAndPrefixShared(pkg, '^5.5.0', false)
   ),
+  ...makePackageAndPrefixShared('@taiga-ui/polymorpheus', '^5.0.0', true),
 ];

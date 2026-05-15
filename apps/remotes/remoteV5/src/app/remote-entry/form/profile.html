@@ -1,0 +1,46 @@
+<header tuiHeader="h5">
+  <h2 tuiTitle>
+    Profile V5
+    <div tuiSubtitle>This is how others will see you on the site.</div>
+  </h2>
+</header>
+
+<form tuiForm="m" [formGroup]="form" (ngSubmit)="submit()">
+  <label tuiLabel>
+    <tui-textfield>
+      <input placeholder="Public name" tuiInput formControlName="name" />
+    </tui-textfield>
+    Your name may appear around system where you contribute or are mentioned.
+    You can remove it at any time.
+  </label>
+
+  <label tuiLabel>
+    <tui-textfield tuiChevron iconStart="@tui.mail">
+      <input placeholder="Public email" tuiSelect formControlName="email" />
+      <tui-data-list-wrapper *tuiDropdown [items]="emails" />
+      <tui-icon tuiTooltip="List of your verified email addresses" />
+    </tui-textfield>
+    You can manage verified email addresses in your email settings.
+  </label>
+
+  <label tuiLabel>
+    <tui-textfield>
+      <textarea
+        placeholder="Tell us a little bit about yourself"
+        tuiTextarea
+        formControlName="bio"
+      ></textarea>
+    </tui-textfield>
+    You can &#64;mention other users and organizations to link to them.
+  </label>
+
+  <button
+    appearance="primary-grayscale"
+    size="m"
+    tuiButton
+    type="submit"
+    class="submit-button"
+  >
+    Update profile
+  </button>
+</form>

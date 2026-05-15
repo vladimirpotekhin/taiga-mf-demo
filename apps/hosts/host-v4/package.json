@@ -5,6 +5,8 @@
     "@taiga-ui/core": "4.81.0",
     "@taiga-ui/cdk": "4.81.0",
     "@taiga-ui/icons": "4.81.0",
+    "@taiga-ui/layout": "4.81.0",
+    "@taiga-ui/kit": "4.81.0",
     "@taiga-ui/i18n": "4.81.0",
     "@taiga-ui/polymorpheus": "^4.9.0",
     "@taiga-ui/event-plugins": "^4.7.0",

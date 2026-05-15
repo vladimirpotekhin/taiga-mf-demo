@@ -1,0 +1,24 @@
+{
+  "projects": {
+    "default": "taiga-mf"
+  },
+  "targets": {
+    "taiga-mf": {
+      "hosting": {
+        "host-v4": [
+          "taiga-mf-host-v4"
+        ],
+        "host-v5": [
+          "taiga-mf-host-v5"
+        ],
+        "remote-v4": [
+          "taiga-mf-remote-v4"
+        ],
+        "remote-v5": [
+          "taiga-mf-remote-v5"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

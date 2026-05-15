@@ -2,7 +2,10 @@ import { ModuleFederationConfig } from '@nx/module-federation';
 import {
   taiga4AdditionalShared,
 } from '../../../shared/taiga4.shared';
-import { excludeTaigaFromAutoShare } from '../../../shared/shared.util';
+import {
+  excludeTaigaFromAutoShare,
+  makeSharedConfig,
+} from '../../../shared/shared.util';
 
 const config: ModuleFederationConfig = {
   name: 'host-v4',
@@ -15,7 +18,10 @@ const config: ModuleFederationConfig = {
     return defaultConfig;
   },
 
-  additionalShared: [...taiga4AdditionalShared],
+  additionalShared: [
+    ['@angular/forms', makeSharedConfig('~21.1.0')],
+    ...taiga4AdditionalShared,
+  ],
   disableNxRuntimeLibraryControlPlugin: true,
 };
 

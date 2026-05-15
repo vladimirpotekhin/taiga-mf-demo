@@ -1,12 +1,20 @@
 <tui-root>
-  <header class="host-header host-header--v4">
-    <h1>Host v4 (Taiga v4)</h1>
-    <nav>
-      <a routerLink="/">Home</a>
-      <a routerLink="remoteV4">Remote v4</a>
-      <a routerLink="remoteV5">Remote v5</a>
-      <a routerLink="both">Both</a>
-    </nav>
+  <header tuiNavigationHeader>
+    <span tuiNavigationLogo>
+      <span> Taiga UI Host v4 </span>
+    </span>
+    <span tuiNavigationSegments>
+        <a appearance="secondary-grayscale" tuiButton routerLink="/" routerLinkActive="_active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <a appearance="secondary-grayscale" tuiButton routerLink="remoteV4" routerLinkActive="_active"
+          >Remote v4</a
+        >
+        <a appearance="secondary-grayscale" tuiButton routerLink="remoteV5" routerLinkActive="_active"
+          >Remote v5</a
+        >
+        <a appearance="secondary-grayscale" tuiButton routerLink="both" routerLinkActive="_active">Both</a>
+    </span>
   </header>
-  <router-outlet></router-outlet>
+  <main tuiNavigationMain>
+    <router-outlet></router-outlet>
+  </main>
 </tui-root>

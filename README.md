@@ -1,106 +1,106 @@
-# New Nx Repository
+# Taiga UI Microfrontends Playground
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+A sandbox for checking how **different major versions of Taiga UI coexist on a single page**
+through Module Federation. Two host applications (on Taiga v4 and v5) load two remote
+microfrontends (also on v4 and v5) in mixed combinations — so we can catch CSS, DI and
+overlay-container conflicts before they reach production.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+> Looking for the detailed research plan, phases and scenario matrix?
+> See [docs/PLAN.md](./docs/PLAN.md).
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
-## Finish your Nx platform setup
+## Demo
 
-🚀 [Finish setting up your workspace](https://cloud.nx.app/connect/wqbhW2zhH5) to get faster builds with remote caching, distributed task execution, and self-healing CI. [Learn more about Nx Cloud](https://nx.dev/ci/intro/why-nx-cloud).
-## Generate a library
+| App         | Stack                       | Link |
+|-------------|-----------------------------|--------|
+| Host v4     | Angular 21 + Taiga UI 4.81  | https://taiga-mf-host-v4.web.app |
+| Host v5     | Angular 21 + Taiga UI 5.5   | https://taiga-mf-host-v5.web.app |
+| Remote v4   | Angular 21 + Taiga UI 4.81  | https://taiga-mf-remote-v4.web.app |
+| Remote v5   | Angular 21 + Taiga UI 5.5   | https://taiga-mf-remote-v5.web.app |
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
-```
+Routes available on each host:
+- `/` — landing page with navigation
+- `/remoteV4` — remote v4 only
+- `/remoteV5` — remote v5 only
+- `/both` — both remotes on the same page (the main conflict scenario)
 
-## Run tasks
+## Stack
 
-To build the library use:
+- **Nx 22** — monorepo, orchestration
+- **Angular 21** — framework
+- **@nx/module-federation** (Webpack 5 MF) — host ↔ remote wiring
+- **Taiga UI** — `4.81` and `5.5` side by side
+- **Firebase Hosting** — static deployment
 
-```sh
-npx nx build pkg1
-```
-
-To run any task with Nx use:
-
-```sh
-npx nx <target> <project-name>
-```
-
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Versioning and releasing
-
-To version and release the library use
+## Layout
 
 ```
-npx nx release
+apps/
+├── hosts/
+│   ├── host-v4/      # Host on Taiga v4 — dev :4200
+│   └── host-v5/      # Host on Taiga v5 — dev :4300
+└── remotes/
+    ├── remoteV4/     # Remote on Taiga v4 — dev :4201
+    └── remoteV5/     # Remote on Taiga v5 — dev :4202
+
+shared/               # Shared MF config (shared scope, Taiga exclusions)
 ```
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
+Every host wires up **both** remotes, so all three test scenarios (host v4 with mixed remotes,
+host v5 with mixed remotes) work without re-configuration.
 
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Running locally
 
-## Keep TypeScript project references up to date
+```bash
+npm install
 
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
+# Host v4 + both remotes → http://localhost:4200
+npm run start:host-v4
 
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
+# Host v5 + both remotes → http://localhost:4300
+npm run start:host-v5
 ```
 
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
+The Nx Module Federation dev-server boots the remote apps automatically, no separate launch
+needed. If you still want them in isolation: `npm run start:remote-v4` / `npm run start:remote-v5`.
 
-```sh
-npx nx sync:check
+## Building
+
+```bash
+npm run build:host-v4       # single project
+npm run build:all           # every project at once via nx run-many
+npm run lint:all
+npm run graph               # Nx dependency graph
 ```
 
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
+## Deployment (Firebase Hosting)
 
-## Nx Cloud
+The Firebase project is `taiga-mf` with one site per app. Targets are declared in `.firebaserc`,
+the serving rules live in `firebase.json` (including the CORS headers on `remoteEntry.js`
+so a host on a different origin can pull it).
 
-Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+```bash
+npx firebase login          # one-time
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+npm run deploy:host-v4      # build + deploy a single app
+npm run deploy:host-v5
+npm run deploy:remote-v4
+npm run deploy:remote-v5
 
-### Set up CI (non-Github Actions CI)
-
-**Note:** This is only required if your CI provider is not GitHub Actions.
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
+npm run deploy:all          # build everything + deploy all sites at once
 ```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## What this playground actually tests
 
-## Install Nx Console
+The goal is to catch and document everything that breaks when versions are mixed:
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+- **CSS** — conflicts between global styles and CSS variables that share names
+- **DI** — collisions between Taiga injection tokens and singleton services
+- **Overlays / portals** — overlay containers anchored to `document.body`
+- **MF shared scope** — what belongs in `shared` vs what must stay isolated
+- **Angular peer-dependency versions** between Taiga v4 and v5
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Details and current status live in [docs/PLAN.md](./docs/PLAN.md).
 
-## Useful links
+## License
 
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+MIT
