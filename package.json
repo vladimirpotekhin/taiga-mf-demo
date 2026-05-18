@@ -18,7 +18,8 @@
     "deploy:host-v5": "npx nx build host-v5 && npx firebase deploy --only hosting:host-v5",
     "deploy:remote-v4": "npx nx build remoteV4 && npx firebase deploy --only hosting:remote-v4",
     "deploy:remote-v5": "npx nx build remoteV5 && npx firebase deploy --only hosting:remote-v5",
-    "deploy:all": "npm run build:all && npx firebase deploy --only hosting"
+    "deploy:all": "npm run build:all && npx firebase deploy --only hosting",
+    "reinstall": "find . -name node_modules -type d -prune -exec rm -rf {} + && npm install"
   },
   "private": true,
   "devDependencies": {
