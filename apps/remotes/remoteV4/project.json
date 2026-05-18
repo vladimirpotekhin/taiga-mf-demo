@@ -27,8 +27,8 @@
           }
         ],
         "styles": [
-          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
-          "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
+          "apps/remotes/remoteV4/node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+          "apps/remotes/remoteV4/node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
           "apps/remotes/remoteV4/src/styles.less"
         ],
         "customWebpackConfig": {
