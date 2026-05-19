@@ -14,7 +14,6 @@ const TAIGA_V4_PACKAGES = [
 ] as const;
 
 const UTILITY_PACKAGES = [
-  '@taiga-ui/event-plugins',
   '@ng-web-apis/common',
   '@ng-web-apis/mutation-observer',
   '@ng-web-apis/platform',
@@ -30,4 +29,5 @@ export const taiga4AdditionalShared: [string, SharedLibraryConfig][] = [
     makePackageAndPrefixShared(pkg, '^4.0.0', false)
   ),
   ...makePackageAndPrefixShared('@taiga-ui/polymorpheus', '^4.0.0', true),
+  ...makePackageAndPrefixShared('@taiga-ui/event-plugins', '^4.0.0', true),
 ];
