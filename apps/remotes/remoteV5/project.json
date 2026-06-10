@@ -23,7 +23,7 @@
           {
             "glob": "**/*",
             "input": "apps/remotes/remoteV5/node_modules/@taiga-ui/icons/src",
-            "output": "assets/taiga-ui/icons"
+            "output": "assets/v5/icons"
           }
         ],
         "styles": [

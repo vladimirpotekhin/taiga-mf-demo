@@ -19,7 +19,7 @@ import { TuiCard } from '@taiga-ui/layout';
     }
 
     [tuiCardLarge] {
-      max-width: 25rem;
+      max-width: 35rem;
     }
   `,
 })
