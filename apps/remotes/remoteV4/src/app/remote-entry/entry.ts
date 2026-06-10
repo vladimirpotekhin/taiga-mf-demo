@@ -16,11 +16,11 @@ import { TuiCard } from '@taiga-ui/layout';
   `,
   styles: `
     tui-root {
-      padding: 1rem;
+      padding: 1rem;  
     }
     
     [tuiCardLarge] {
-      max-width: fit-content;
+      max-width: 35rem;
     }
   `,
 })
