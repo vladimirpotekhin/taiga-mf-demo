@@ -1,0 +1,58 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  [tuiBadge] {
+    margin-inline-start: auto;
+  }
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.radios {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.storage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  progress {
+    inline-size: 100%;
+  }
+}
+
+.alerts {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+tui-segmented {
+  align-self: flex-start;
+}
