@@ -7,12 +7,16 @@ import { NgComponentOutlet } from '@angular/common';
   template: `
     <h2>Both remotes on one page</h2>
     <div class="both-remotes">
-      @if (remoteV4(); as comp) {
-        <ng-container *ngComponentOutlet="comp" />
-      }
-      @if (remoteV5(); as comp) {
-        <ng-container *ngComponentOutlet="comp" />
-      }
+      <div class="column">
+        @if (remoteV4(); as comp) {
+          <ng-container *ngComponentOutlet="comp" />
+        }
+      </div>
+      <div class="column">
+        @if (remoteV5(); as comp) {
+          <ng-container *ngComponentOutlet="comp" />
+        }
+      </div>
     </div>
   `,
   styles: [`
@@ -20,7 +24,11 @@ import { NgComponentOutlet } from '@angular/common';
     .both-remotes {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
+    }
+    /* Side-by-side columns on desktop so v4/v5 examples line up pairwise */
+    .column {
+      flex: 1 1 30rem;
+      min-width: 0;
     }
   `],
 })

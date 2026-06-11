@@ -26,13 +26,11 @@ import { TuiCard } from '@taiga-ui/layout';
 
     .cards {
       display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
+      flex-direction: column;
       gap: 1rem;
     }
 
     [tuiCardLarge] {
-      flex: 1 1 20rem;
       max-width: 35rem;
     }
   `,
