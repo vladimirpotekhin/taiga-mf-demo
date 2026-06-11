@@ -1,0 +1,101 @@
+<header tuiHeader="h5">
+  <h2 tuiTitle>
+    Showcase V5
+    <div tuiSubtitle>The same set of components in both versions.</div>
+  </h2>
+</header>
+
+<div class="user">
+  <span tuiAvatar size="l">AI</span>
+  <div tuiTitle>
+    Alex Inkin
+    <div tuiSubtitle>Principal engineer</div>
+  </div>
+  <span tuiBadge appearance="positive">Online</span>
+</div>
+
+<tui-segmented size="m" [(activeItemIndex)]="period">
+  <button type="button">Day</button>
+  <button type="button">Week</button>
+  <button type="button">Month</button>
+</tui-segmented>
+
+<label class="row">
+  Email notifications
+  <input tuiSwitch type="checkbox" [(ngModel)]="notifications" />
+</label>
+
+<label class="row">
+  Weekly digest
+  <input tuiCheckbox type="checkbox" [(ngModel)]="digest" />
+</label>
+
+<div class="row">
+  Theme
+  <div class="radios">
+    <label class="radio">
+      <input
+        tuiRadio
+        type="radio"
+        name="theme"
+        value="light"
+        [(ngModel)]="theme"
+      />
+      Light
+    </label>
+    <label class="radio">
+      <input
+        tuiRadio
+        type="radio"
+        name="theme"
+        value="dark"
+        [(ngModel)]="theme"
+      />
+      Dark
+    </label>
+  </div>
+</div>
+
+<div class="storage">
+  <div class="row">
+    Storage used
+    <span>{{ storage }}%</span>
+  </div>
+  <progress tuiProgressBar [value]="storage" [max]="100"></progress>
+  <input tuiSlider type="range" [max]="100" [(ngModel)]="storage" />
+</div>
+
+<div class="row">
+  Rate the release
+  <tui-rating [(ngModel)]="rating" />
+</div>
+
+<div class="row">
+  Alerts
+  <div class="alerts">
+    <button
+      tuiButton
+      type="button"
+      size="s"
+      appearance="secondary"
+      (click)="showAlert('positive')"
+    >
+      Success
+    </button>
+    <button
+      tuiButton
+      type="button"
+      size="s"
+      appearance="secondary-destructive"
+      (click)="showAlert('negative')"
+    >
+      Error
+    </button>
+  </div>
+</div>
+
+<div class="chips">
+  @for (tag of tags; track tag) {
+    <span tuiChip size="xs">{{ tag }}</span>
+  }
+</div>

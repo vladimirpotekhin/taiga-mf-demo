@@ -6,6 +6,7 @@ import {
   TuiDialogService,
   TuiTextfield,
   TuiTitle,
+  TuiIcon,
 } from '@taiga-ui/core';
 import { TuiForm, TuiHeader } from '@taiga-ui/layout';
 import {
@@ -33,6 +34,7 @@ import { switchMap } from 'rxjs';
     TuiTextarea,
     TuiChevron,
     TuiTooltip,
+    TuiIcon,
   ],
   templateUrl: './profile.html',
   styleUrl: './profile.less',
@@ -54,17 +56,15 @@ export class ProfileComponent {
     this.dialogs
       .open(TUI_CONFIRM, {
         data: {
-          content:
-            'You profile will be updated',
+          content: 'You profile will be updated',
           no: 'You have no choice',
         },
       })
       .pipe(
-        switchMap(() => this.alert.open('Good job', { label: 'Profile updated' }))
+        switchMap(() =>
+          this.alert.open('Good job', { label: 'Profile updated' })
+        )
       )
       .subscribe();
-
-
-
   }
 }

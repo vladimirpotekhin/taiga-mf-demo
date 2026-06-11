@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
-import { provideTaiga } from '@taiga-ui/core';
+import { provideTaiga, TuiNotificationService } from '@taiga-ui/core';
 import { tuiIconResolverProvider } from '@taiga-ui/core/tokens';
 import { RemoteEntryInner } from './entry';
 
@@ -32,7 +32,13 @@ const iconResolver = (icon: string): string =>
 export class RemoteEntry {
   protected component = RemoteEntryInner;
   protected envInjector = createEnvironmentInjector(
-    [provideTaiga(), tuiIconResolverProvider(iconResolver)],
+    [
+      provideTaiga(),
+      tuiIconResolverProvider(iconResolver),
+      // Alerts are created with the injector that instantiated the service,
+      // so scope the service here for them to pick up the icon resolver above.
+      TuiNotificationService,
+    ],
     inject(EnvironmentInjector),
   );
 }

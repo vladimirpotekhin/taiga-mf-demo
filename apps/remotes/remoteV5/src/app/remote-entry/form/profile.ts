@@ -2,9 +2,11 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   TuiButton,
-  TuiDialogService, TuiInput,
+  TuiDialogService,
+  TuiInput,
   TuiNotificationService,
   TuiTitle,
+  TuiIcon,
 } from '@taiga-ui/core';
 import {
   TUI_CONFIRM,
@@ -16,6 +18,7 @@ import {
 } from '@taiga-ui/kit';
 import { switchMap } from 'rxjs';
 import { TuiForm, TuiHeader } from '@taiga-ui/layout';
+
 
 @Component({
   selector: 'app-mf-5-profile',
@@ -30,6 +33,7 @@ import { TuiForm, TuiHeader } from '@taiga-ui/layout';
     TuiTooltip,
     TuiInput,
     TuiHeader,
+    TuiIcon,
     TuiForm,
   ],
   templateUrl: './profile.html',
