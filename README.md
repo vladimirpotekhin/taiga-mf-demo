@@ -89,6 +89,23 @@ npm run deploy:remote-v5
 npm run deploy:all          # build everything + deploy all sites at once
 ```
 
+## Keeping Taiga up to date (Renovate)
+
+The whole point of this repo is to bump Taiga, rebuild and see what changed. That's
+automated with [Renovate](https://docs.renovatebot.com/) ([`renovate.json`](./renovate.json)):
+
+- Only `@taiga-ui/*` and its `@ng-web-apis/*` companions are tracked — Angular, Nx and the
+  rest are left alone.
+- Two independent groups that never cross majors: **Taiga UI v4** stays on the latest `4.x`
+  (host-v4 / remoteV4), **Taiga UI v5** stays on the latest `5.x` (host-v5 / remoteV5).
+- Each new Taiga release opens a PR. CI (`pr.yml`) builds it; merging to `main` auto-deploys
+  via `deploy.yml`, so you just watch what broke/got fixed on the live sites.
+
+PRs are **not** auto-merged on purpose — review them, that's the experiment.
+
+> One-time setup: install the [Mend Renovate App](https://github.com/apps/renovate) on this
+> repo so it picks up `renovate.json`. The first run opens an onboarding PR.
+
 ## What this playground actually tests
 
 The goal is to catch and document everything that breaks when versions are mixed:

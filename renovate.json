@@ -1,0 +1,27 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":dependencyDashboard"],
+  "labels": ["dependencies", "taiga"],
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "description": "Manage only Taiga UI and its @ng-web-apis companions — leave Angular, Nx and everything else untouched",
+      "matchPackageNames": ["!@taiga-ui/**", "!@ng-web-apis/**"],
+      "enabled": false
+    },
+    {
+      "description": "Taiga UI v4 line — keep host-v4 / remoteV4 on the latest 4.x, never jump to v5",
+      "matchPackageNames": ["@taiga-ui/**", "@ng-web-apis/**"],
+      "matchCurrentVersion": ">=4.0.0 <5.0.0",
+      "groupName": "Taiga UI v4",
+      "allowedVersions": "<5.0.0"
+    },
+    {
+      "description": "Taiga UI v5 line — keep host-v5 / remoteV5 on the latest 5.x, never jump to v6",
+      "matchPackageNames": ["@taiga-ui/**", "@ng-web-apis/**"],
+      "matchCurrentVersion": ">=5.0.0 <6.0.0",
+      "groupName": "Taiga UI v5",
+      "allowedVersions": "<6.0.0"
+    }
+  ]
+}
