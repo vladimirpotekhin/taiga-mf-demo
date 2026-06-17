@@ -3,6 +3,8 @@
   "extends": ["config:recommended", ":dependencyDashboard"],
   "labels": ["dependencies", "taiga"],
   "rangeStrategy": "bump",
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 0,
   "packageRules": [
     {
       "description": "Manage only Taiga UI and its @ng-web-apis companions — leave Angular, Nx and everything else untouched",
