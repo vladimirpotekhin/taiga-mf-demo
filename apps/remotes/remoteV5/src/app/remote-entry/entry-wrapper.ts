@@ -6,7 +6,12 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
-import { provideTaiga, TuiNotificationService } from '@taiga-ui/core';
+import {
+  provideTaiga,
+  TUI_LIQUID_GLASS,
+  TUI_OPTIONS,
+  TuiNotificationService,
+} from '@taiga-ui/core';
 import { tuiIconResolverProvider } from '@taiga-ui/core/tokens';
 import { RemoteEntryInner } from './entry';
 
@@ -35,6 +40,13 @@ export class RemoteEntry {
     [
       provideTaiga(),
       tuiIconResolverProvider(iconResolver),
+      {
+        provide: TUI_LIQUID_GLASS,
+        useFactory: () => {
+          const { apis } = inject(TUI_OPTIONS);
+          return apis !== 'stable' && (apis.all || !!apis.liquidGlass);
+        },
+      },
       // Alerts are created with the injector that instantiated the service,
       // so scope the service here for them to pick up the icon resolver above.
       TuiNotificationService,
