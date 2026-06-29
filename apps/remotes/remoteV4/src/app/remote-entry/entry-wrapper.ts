@@ -9,6 +9,7 @@ import { NgComponentOutlet } from '@angular/common';
 import { provideEventPlugins } from '@taiga-ui/event-plugins';
 import { tuiIconResolverProvider } from '@taiga-ui/core/tokens';
 import { RemoteEntryInner } from './entry';
+import { provideTaigaMf } from './taiga-mf.providers';
 
 // Resolve icons from this remote's own publicPath (its own taiga-ui version),
 // even when mounted inside a host (e.g. the /both page). We provide the
@@ -32,7 +33,12 @@ const iconResolver = (icon: string): string =>
 export class RemoteEntry {
   protected component = RemoteEntryInner;
   protected envInjector = createEnvironmentInjector(
-    [provideEventPlugins(), tuiIconResolverProvider(iconResolver)],
+    [
+      provideEventPlugins(),
+      tuiIconResolverProvider(iconResolver),
+      // Route alerts to the host's portal, with a local fallback when standalone.
+      ...provideTaigaMf(),
+    ],
     inject(EnvironmentInjector),
   );
 }

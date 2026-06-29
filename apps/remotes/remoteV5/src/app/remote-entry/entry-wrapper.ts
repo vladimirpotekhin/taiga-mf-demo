@@ -14,6 +14,7 @@ import {
 } from '@taiga-ui/core';
 import { tuiIconResolverProvider } from '@taiga-ui/core/tokens';
 import { RemoteEntryInner } from './entry';
+import { provideTaigaMf } from './taiga-mf.providers';
 
 // Resolve icons from this remote's own publicPath (its own taiga-ui version),
 // even when mounted inside a host (e.g. the /both page). We provide the
@@ -50,6 +51,9 @@ export class RemoteEntry {
       // Alerts are created with the injector that instantiated the service,
       // so scope the service here for them to pick up the icon resolver above.
       TuiNotificationService,
+      // Route alerts to the host's portal (with a local fallback). Scoped here
+      // so the fallback path still picks up the icon resolver above.
+      ...provideTaigaMf(),
     ],
     inject(EnvironmentInjector),
   );
