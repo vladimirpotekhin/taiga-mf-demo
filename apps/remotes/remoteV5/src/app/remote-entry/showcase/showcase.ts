@@ -18,6 +18,9 @@ import {
   TuiSwitch,
 } from '@taiga-ui/kit';
 import { TuiHeader } from '@taiga-ui/layout';
+import { PolymorpheusComponent } from '@taiga-ui/polymorpheus';
+import { switchMap } from 'rxjs';
+import { BalanceAlert } from './balance-alert';
 
 @Component({
   selector: 'app-mf-5-showcase',
@@ -60,6 +63,25 @@ export class ShowcaseComponent {
           ? 'Everything is up to date'
           : 'Something went wrong',
         { label: 'Showcase V5', appearance }
+      )
+      .subscribe();
+  }
+
+  // Component-type (Polymorpheus) alert content. Probes whether interactive
+  // component content survives the MF bus: it needs the rendering host to share
+  // the same @taiga-ui/polymorpheus singleton, which only holds within one major.
+  protected showBalanceAlert(): void {
+    this.alerts
+      .open<number>(new PolymorpheusComponent(BalanceAlert), {
+        label: 'Your balance',
+        data: 237,
+        appearance: 'warning',
+        autoClose: 0,
+      })
+      .pipe(
+        switchMap((value) =>
+          this.alerts.open(`Got a value — ${value}`, { label: 'Response' })
+        )
       )
       .subscribe();
   }
