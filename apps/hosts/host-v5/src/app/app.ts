@@ -1,5 +1,6 @@
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component, DestroyRef, inject, Injector } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { TUI_VERSION } from '@taiga-ui/cdk/constants';
 import {
   TuiButton,
   TuiNotificationService,
@@ -11,6 +12,7 @@ import {
   TuiNavigation,
 } from '@taiga-ui/layout';
 import { getAlertBus } from '../../../../../shared/alert-bus';
+import { scopeContentToVersion } from '../../../../../shared/mf-version-scope';
 
 @Component({
   selector: 'app-root',
@@ -36,9 +38,18 @@ export class App {
   // flows back into the remote's reactive chain.
   constructor() {
     const alerts = inject(TuiNotificationService);
-    const unsubscribe = getAlertBus().subscribe(({ content, options }) =>
-      alerts.open(content, options as Partial<TuiNotificationOptions>)
-    );
+    const injector = inject(Injector);
+    const unsubscribe = getAlertBus().subscribe(({ content, options, version }) => {
+      // Content authored against another Taiga major renders in this host's
+      // tui-root, so it would inherit this host's `data-tui-version`. Re-stamp
+      // the source version around it so that major's scoped styles/theme match.
+      const scoped =
+        version && version !== TUI_VERSION
+          ? scopeContentToVersion(content, version, injector)
+          : content;
+
+      return alerts.open(scoped, options as Partial<TuiNotificationOptions>);
+    });
 
     inject(DestroyRef).onDestroy(unsubscribe);
   }

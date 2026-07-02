@@ -3,8 +3,10 @@ import {
   Component,
   DestroyRef,
   inject,
+  Injector,
 } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { TUI_VERSION } from '@taiga-ui/cdk/constants';
 import {
   TuiAlertOptions,
   TuiAlertService,
@@ -13,6 +15,7 @@ import {
 } from '@taiga-ui/core';
 import { TuiNavigation } from '@taiga-ui/layout';
 import { getAlertBus } from '../../../../../shared/alert-bus';
+import { scopeContentToVersion } from '../../../../../shared/mf-version-scope';
 
 @Component({
   selector: 'app-root',
@@ -37,9 +40,15 @@ export class App {
   // flows back into the remote's reactive chain.
   constructor() {
     const alerts = inject(TuiAlertService);
-    const unsubscribe = getAlertBus().subscribe(({ content, options }) =>
-      alerts.open(content, options as Partial<TuiAlertOptions>)
-    );
+    const injector = inject(Injector);
+    const unsubscribe = getAlertBus().subscribe(({ content, options, version }) => {
+      const scoped =
+        version && version !== TUI_VERSION
+          ? scopeContentToVersion(content, version, injector)
+          : content;
+
+      return alerts.open(scoped, options as Partial<TuiAlertOptions>);
+    });
 
     inject(DestroyRef).onDestroy(unsubscribe);
   }

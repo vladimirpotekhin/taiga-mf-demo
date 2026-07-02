@@ -1,4 +1,5 @@
 import { Injectable, type Provider } from '@angular/core';
+import { TUI_VERSION } from '@taiga-ui/cdk/constants';
 import { TuiNotificationService, type TuiNotificationOptions } from '@taiga-ui/core';
 import type { PolymorpheusContent } from '@taiga-ui/polymorpheus';
 import { EMPTY, type Observable } from 'rxjs';
@@ -27,7 +28,12 @@ export class TuiMfNotificationService extends TuiNotificationService {
       // an Observable), so passive observers (e.g. a debug recorder returning
       // void) never shadow the host regardless of subscription order.
       const result = this.bus
-        .publish<G>({ content, options: options as MfAlertOptions<G>, source: 'remoteV5' })
+        .publish<G>({
+          content,
+          options: options as MfAlertOptions<G>,
+          source: 'remoteV5',
+          version: TUI_VERSION,
+        })
         .find(Boolean);
 
       return result ?? EMPTY;

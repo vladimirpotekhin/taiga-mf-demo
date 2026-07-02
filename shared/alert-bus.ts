@@ -62,6 +62,8 @@ export interface MfAlertPayload<T = unknown> {
   readonly options?: MfAlertOptions<T>;
   /** Which remote emitted it — handy for debugging / labelling. */
   readonly source?: string;
+
+  readonly version?: string;
 }
 
 /**

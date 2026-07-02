@@ -1,4 +1,5 @@
 import { inject, type Provider } from '@angular/core';
+import { TUI_VERSION } from '@taiga-ui/cdk/constants';
 import {
   TUI_ALERT_OPTIONS,
   TUI_ALERTS,
@@ -32,7 +33,12 @@ export class TuiMfAlertService extends TuiAlertService {
       // an Observable), so passive observers (e.g. a debug recorder returning
       // void) never shadow the host regardless of subscription order.
       const result = this.bus
-        .publish<G>({ content, options: options as MfAlertOptions<G>, source: 'remoteV4' })
+        .publish<G>({
+          content,
+          options: options as MfAlertOptions<G>,
+          source: 'remoteV4',
+          version: TUI_VERSION,
+        })
         .find(Boolean);
 
       return result ?? EMPTY;
