@@ -1,2 +1,8 @@
-@import '@taiga-ui/styles/taiga-ui-theme.less';
 @import '@taiga-ui/styles/taiga-ui-fonts.less';
+
+@import '@taiga-ui/styles/mixins/theme.less';
+
+tui-root[data-tui-version^="5"] {
+  .taiga-ui-theme();
+}
+
