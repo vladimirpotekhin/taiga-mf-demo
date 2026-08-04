@@ -11,6 +11,7 @@ import {
   TUI_LIQUID_GLASS,
   TUI_OPTIONS,
   TuiNotificationService,
+  TuiPopupService,
 } from '@taiga-ui/core';
 import { tuiIconResolverProvider } from '@taiga-ui/core/tokens';
 import { RemoteEntryInner } from './entry';
@@ -49,7 +50,14 @@ export class RemoteEntry {
       },
       // Alerts are created with the injector that instantiated the service,
       // so scope the service here for them to pick up the icon resolver above.
-      TuiNotificationService,
+      // TuiNotificationService is declared as `@Injectable({useClass, deps})`,
+      // so its ɵfac is intentionally invalid - it can only be re-provided with
+      // an explicit useClass/deps, never as a bare class provider.
+      {
+        provide: TuiNotificationService,
+        useClass: TuiNotificationService,
+        deps: [TuiPopupService],
+      },
     ],
     inject(EnvironmentInjector),
   );
