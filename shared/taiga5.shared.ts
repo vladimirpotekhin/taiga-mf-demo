@@ -1,5 +1,8 @@
 import { SharedLibraryConfig } from '@nx/module-federation';
-import { makePackageAndPrefixShared } from './shared.util';
+import {
+  makeCrossMajorSingletonShared,
+  makePackageAndPrefixShared,
+} from './shared.util';
 
 const TAIGA_V5_PACKAGES = [
   '@taiga-ui/cdk',
@@ -28,6 +31,8 @@ export const taiga5AdditionalShared: [string, SharedLibraryConfig][] = [
   ...UTILITY_PACKAGES.flatMap((pkg) =>
     makePackageAndPrefixShared(pkg, '^5.5.0', false)
   ),
-  ...makePackageAndPrefixShared('@taiga-ui/polymorpheus', '^5.0.0', true),
+  // Shared as one instance across v4/v5 so component-type alert & dialog content
+  // keeps a single POLYMORPHEUS_CONTEXT / PolymorpheusComponent identity.
+  ...makeCrossMajorSingletonShared('@taiga-ui/polymorpheus'),
   ...makePackageAndPrefixShared('@taiga-ui/event-plugins', '^5.0.0', true),
 ];
